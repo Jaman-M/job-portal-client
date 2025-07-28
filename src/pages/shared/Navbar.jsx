@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext/AuthContext';
 
 const Navbar = () => {
+
+    // conditional for register and login
+    const { user } = useContext(AuthContext)
+
     // for link setup
     const links = <>
         <li><a>Item 1</a></li>
-        
+
         <li><a>Item 3</a></li>
     </>
     return (
@@ -40,8 +45,19 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to="/register">Register</Link>
-                <a className="btn">Sign In</a>
+
+                {
+                    user ? <>
+                    <button className='btn'>Logout</button>
+                    </> : <>
+                        <Link to="/register">Register</Link>
+                        <Link to="/signIn"><button className='btn'>Sign In</button>
+                        </Link>
+                    </>
+                }
+
+
+
             </div>
         </div>
     );
